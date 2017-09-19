@@ -1,0 +1,66 @@
+﻿@model MyCarier.Models.Login
+
+@{
+    ViewBag.Title = "SignIn";
+    ViewBag.Header = "Login";
+    ViewBag.HeaderIcon = "lock";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zırtapoz CV Sitesi</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/w3.css" rel="stylesheet" />
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        html, body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Roboto", sans-serif
+        }
+    </style>
+</head>
+<body class="w3-light-grey">
+
+
+    <div class="w3-container w3-padding-16">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            @using (Html.BeginForm())
+            {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Please Login</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "e-mail address" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "password", type = "password" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-6">
+                        @Html.ActionLink("Back to Home", "HomePage", null, new { @class = "btn btn-default btn-block" })
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" value="Login" class="btn btn-success btn-block" />
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+﻿@using MyCarier.Models
+
+@{
+    DatabaseContext db = new DatabaseContext();
+    MyCarier.Models.PersonInfo pi = ViewBag.Person;
+    List<Social> socials = db.Socials.Where(x => x.PersonInfo.Id == pi.Id).ToList();
+}
+
+<p>Find me on social media.</p>
+
+@foreach (Social s in socials)
+{
+    <a href="@s.Url" target="_blank">
+        <i class="fa fa-@s.IconName w3-hover-opacity"></i>
+    </a>
+}

@@ -1,0 +1,30 @@
+﻿@using MyCarier.Models
+
+@{
+    DatabaseContext db = new DatabaseContext();
+    MyCarier.Models.PersonInfo pi = ViewBag.Person;
+    List<Education> educations = db.Educations.Where(x => x.PersonInfo.Id == pi.Id).OrderByDescending(x => x.StartYear).ToList();
+}
+
+<div class="w3-container w3-card-2 w3-white">
+    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
+
+    @foreach (Education edu in educations)
+    {
+        string endDateStr = string.Empty;
+
+        if (edu.IsCurrent) {
+            endDateStr = "Current";
+        } else {
+            endDateStr = edu.EndYear.ToString();
+        }
+
+        <div class="w3-container">
+            <h5 class="w3-opacity"><b>@edu.SchoolName</b></h5>
+            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>@edu.StartYear - @endDateStr</h6>
+            <p>@edu.Description</p>
+            <hr>
+        </div>
+    }
+
+</div>

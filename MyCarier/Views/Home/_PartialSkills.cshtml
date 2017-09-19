@@ -1,0 +1,20 @@
+﻿@using MyCarier.Models
+@{ 
+    DatabaseContext db = new DatabaseContext();
+    MyCarier.Models.PersonInfo pi = ViewBag.Person;
+    List<Ability> skills = db.Abilities.Where(x => x.PersonInfo.Id == pi.Id && x.Category == "skill").ToList();
+}
+
+<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
+
+@foreach (Ability ab in skills)
+{
+    <p>@ab.Name</p>
+    <div class="w3-light-grey w3-round-xlarge w3-small">
+        <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:@ab.Scale%">
+            @ab.Scale%
+        </div>
+    </div>
+}
+
+<br>

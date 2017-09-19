@@ -1,0 +1,32 @@
+﻿@using GridMvc.Html
+@model IEnumerable<MyCarier.Models.Log>
+
+@{
+    ViewBag.Title = "Index";
+    ViewBag.Header = "Log List";
+    ViewBag.HeaderIcon = "list";
+    ViewBag.NavLogs = "w3-blue";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<link href="~/Content/gridmvc.datepicker.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/gridmvc.min.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
+<script src="~/Scripts/gridmvc.lang.tr.js"></script>
+
+<div class="w3-container w3-padding-16">
+
+    @Html.Grid(Model).Columns(col =>
+        {
+            col.Add(x => x.Id, true);
+            col.Add(x => x.Date).Titled("Log Date").Filterable(true);
+            col.Add(x => x.Username).Titled("User").Filterable(true);
+            col.Add(x => x.ControllerName).Titled("Controller Name").Filterable(true);
+            col.Add(x => x.ActionName).Titled("Action Name").Filterable(true);
+            col.Add(x => x.Description).Titled("Description").Filterable(true);
+        }).Sortable(true).WithPaging(10).WithMultipleFilters().SetLanguage("tr")
+
+    </div>

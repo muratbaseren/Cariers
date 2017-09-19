@@ -1,0 +1,90 @@
+﻿@model MyCarier.ViewModels.PdfViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreatePdf</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+</head>
+<body>
+
+    @{
+        string imageUri = "http://" + Request.Url.Authority + "/images/profile.png";
+    }
+
+    <script>
+
+        //console.log("@imageUri");
+
+        var dd = {
+            content: [
+                {
+                    fontSize: 24,
+                    text: "Kadir Murat Başeren CV",
+                },
+                {
+                    columns: [
+                        {
+                            text:"Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.",
+                            margin:[10,10]
+                        },
+                        {
+                            stack:[
+                                {
+                                    text: [
+                                        { text: "Title : ", bold: true },
+                                        "@Model.PersonInfo.Title \n",
+                                        { text:"Address : ", bold:true },
+                                        "@(Model.PersonInfo.City + "," + Model.PersonInfo.Country) \n",
+                                        { text:"E-Mail : ", bold:true },
+                                        "@Model.PersonInfo.Email \n",
+                                        { text:"Phone : ", bold:true },
+                                        "@Model.PersonInfo.Phone \n",
+                                        { text:"Bio : ", bold:true },
+                                        "@Model.PersonInfo.AddtionalInfo \n",
+                                    ]
+                                }
+                            ],
+                            margin: [10, 10]
+                        }
+                    ]
+                },
+                {
+                    fontSize: 16,
+                    bold: true,
+                    text: "Languages"
+                },
+                {
+                    text: [
+                        @foreach (var item in Model.Skills)
+                        {
+                            @Html.Raw(@"{ text: '"+ item.Name +"', bold: true },' " + item.Scale + "% \\n',")
+                        }
+                    ],
+                    margin: [10, 10]
+                }
+            ]
+        };
+
+        @if(Model.Param == "open")
+        {
+            @Html.Raw("pdfMake.createPdf(dd).open();")
+        }
+        else if (Model.Param == "print")
+        {
+            @Html.Raw("pdfMake.createPdf(dd).print();")
+        }
+        else
+        {
+            @Html.Raw("pdfMake.createPdf(dd).download('" +  Model.PersonInfo.Name + "_" + Model.PersonInfo.Surname + ".pdf');")
+        }
+
+    </script>
+</body>
+</html>

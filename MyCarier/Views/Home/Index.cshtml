@@ -1,0 +1,92 @@
+﻿@using MyCarier.Models
+@{
+    DatabaseContext db = new DatabaseContext();
+    PersonInfo pi = ViewBag.Person;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zırtapoz CV Sitesi</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/w3.css" rel="stylesheet" />
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        html, body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Roboto", sans-serif
+        }
+    </style>
+</head>
+<body class="w3-light-grey">
+
+    <!-- Page Container -->
+    <div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+        <!-- The Grid -->
+        <div class="w3-row-padding">
+
+            <!-- Left Column -->
+            <div class="w3-third">
+
+                <div class="w3-white w3-text-grey w3-card-4">
+                    <div class="w3-display-container">
+                        <img src="/images/@pi.PhotoImageName" style="width:100%" alt="Avatar">
+                        <div class="w3-display-bottomleft w3-container w3-text-black">
+                            <h2>@pi.Name @pi.Surname</h2>
+                        </div>
+                    </div>
+                    <div class="w3-container">
+                        <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>@pi.Title</p>
+                        <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>@(pi.City + ", " + pi.Country)</p>
+                        <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>@pi.Email</p>
+                        <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>@pi.Phone</p>
+                        <p>
+                            <i class="fa fa-info fa-fw w3-margin-right w3-large w3-text-teal"></i>@pi.AddtionalInfo
+                        </p>
+                        <p class="text-right">
+
+                            @Html.ActionLink("Open PDF", "CreatePdf", new { id = pi.Id, param = "open" }, new { @class = "btn btn-info btn-sm" })
+
+                            @Html.ActionLink("Print PDF", "CreatePdf", new { id = pi.Id, param = "print" }, new { @class = "btn btn-info btn-sm" })
+
+                            @Html.ActionLink("Save PDF", "CreatePdf", new { id = pi.Id, param = "save" }, new { @class = "btn btn-info btn-sm" })
+                        </p>
+                        <hr>
+
+                        @Html.Partial("_PartialSkills")
+
+                        @Html.Partial("_PartialLanguages")
+                    </div>
+                </div><br>
+
+                <!-- End Left Column -->
+            </div>
+
+            <!-- Right Column -->
+            <div class="w3-twothird">
+
+                @Html.Partial("_PartialWorkExperiences")
+
+                @Html.Partial("_PartialEducation")
+
+                <!-- End Right Column -->
+            </div>
+
+            <!-- End Grid -->
+        </div>
+
+        <!-- End Page Container -->
+    </div>
+
+    <footer class="w3-container w3-teal w3-center w3-margin-top">
+        @Html.Partial("_PartialSocial")
+        <hr />
+        <a href="/Admin/Index" class="btn btn-info">Admin Panel</a>
+        <br /><br />
+    </footer>
+
+</body>
+</html>

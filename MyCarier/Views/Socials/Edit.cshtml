@@ -1,0 +1,60 @@
+﻿@model MyCarier.Models.Social
+
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.Header = "Edit Social Url";
+    ViewBag.HeaderIcon = "share-alt";
+    ViewBag.NavSocials = "w3-blue";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="w3-container w3-padding-16">
+    <div class="col-md-8">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Social</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IconName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @{
+                            List<SelectListItem> selectList = new List<SelectListItem>();
+                            selectList.Add(new SelectListItem() { Text = "Facebook", Value = "facebook-official" });
+                            selectList.Add(new SelectListItem() { Text = "Instagram", Value = "instagram" });
+                            selectList.Add(new SelectListItem() { Text = "SnapChat", Value = "snapchat" });
+                            selectList.Add(new SelectListItem() { Text = "Pinterest", Value = "pinterest-p" });
+                            selectList.Add(new SelectListItem() { Text = "Twitter", Value = "twitter" });
+                            selectList.Add(new SelectListItem() { Text = "Linkedin", Value = "linkedin" });
+                        }
+
+                        @Html.DropDownList(Html.NameFor(model => model.IconName).ToString(), selectList, "Select", new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(model => model.IconName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-5">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control", type = "url" } })
+                        @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+                            }
+
+    </div>
+</div>

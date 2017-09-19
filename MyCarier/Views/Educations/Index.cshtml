@@ -1,0 +1,68 @@
+﻿@model IEnumerable<MyCarier.Models.Education>
+
+@{
+    ViewBag.Title = "Index";
+    ViewBag.Header = "Educations";
+    ViewBag.HeaderIcon = "graduation-cap";
+    ViewBag.NavEducation = "w3-blue";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="w3-container w3-padding-16">
+    <div class="col-md-12">
+        <p>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SchoolName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsCurrent)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SchoolName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndYear)
+                    </td>
+                    <td>
+                        @if(item.IsCurrent)
+                        {
+                            <span class="glyphicon glyphicon-ok text-success"></span>
+                        } else {
+                            <span class="glyphicon glyphicon-remove text-danger"></span>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id },
+                        new { @class = "btn btn-warning btn-sm" })
+
+                        @Html.ActionLink("Details", "Details", new { id = item.Id },
+                        new { @class = "btn btn-info btn-sm" })
+
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id },
+                        new { @class = "btn btn-danger btn-sm" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

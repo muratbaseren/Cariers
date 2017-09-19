@@ -1,0 +1,77 @@
+﻿@model MyCarier.Models.WorkExprience
+
+@{
+    ViewBag.Title = "Details";
+    ViewBag.Header = "Detail Work Experiences";
+    ViewBag.HeaderIcon = "building-o";
+    ViewBag.NavWorkExp = "w3-blue";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="w3-container w3-padding-16">
+    <div class="col-md-12">
+        <h4>WorkExprience</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanyName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </dt>
+
+            <dd>
+                @(Model.StartDate.ToShortDateString())
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+
+            <dd>
+                @(Model.EndDate?.ToShortDateString())
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsCurrent)
+            </dt>
+
+            <dd>
+                @if (Model.IsCurrent)
+                {
+                    <span class="glyphicon glyphicon-ok text-success"></span>
+                }
+                else
+                {
+                    <span class="glyphicon glyphicon-remove text-danger"></span>
+                }
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.Description)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-md-12">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    </div>
+</div>

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MyCarier.Models.SharedUrl>
+
+@{
+    ViewBag.Title = "Shared Urls";
+    ViewBag.Header = "Shared Urls";
+    ViewBag.HeaderIcon = "cog";
+    ViewBag.NavSettings = "w3-blue";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="w3-container w3-padding-16">
+    <div class="col-md-12">
+
+        <p>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success btn-sm" })
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.StartDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.EndDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.ActionLink("Go To Page", "Show", new { id = item.Id }, new { @class = "btn btn-info btn-sm", target = "_blank" })
+
+                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal_@item.Id">Show Url</button>
+
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+
+                        <div class="modal fade" id="modal_@item.Id" tabindex="-1" role="dialog" aria-labelledby="modal_@item.Id-label">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="modal_@item.Id-label">Shared Url</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="text" class="form-control" id="id_@item.Id"
+                                               value="@("http://" + Request.Url.Authority + "/PublicAccess/Show/" + item.Id)" />
+                                        <hr />
+                                        <center>
+                                            <button type="button" class="btn btn-info btn-sm copy-button" onclick="document.querySelector('#id_@item.Id').select();document.execCommand('copy');">Copy</button>
+                                        </center>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>

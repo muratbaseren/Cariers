@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+    Exception ex = Session["LastError"] as Exception;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+</head>
+<body>
+    <div> 
+        <h1>Error Occured.</h1>
+        <p>
+            @ex.Message
+        </p>
+    </div>
+</body>
+</html>

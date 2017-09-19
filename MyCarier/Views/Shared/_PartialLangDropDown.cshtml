@@ -1,0 +1,33 @@
+﻿
+@{
+    // 1. yöntem
+    List<SelectListItem> selectList = new List<SelectListItem>();
+    selectList.Add(new SelectListItem() { Text = "Az", Value = "25" });
+    selectList.Add(new SelectListItem() { Text = "Orta", Value = "50" });
+    selectList.Add(new SelectListItem() { Text = "İyi", Value = "75" });
+    selectList.Add(new SelectListItem() { Text = "Çok İyi", Value = "100" });
+
+
+    // 2. yöntem
+    //Dictionary<int, string> langDegrees = new Dictionary<int, string>();
+    //langDegrees.Add(25, "Az");
+    //langDegrees.Add(50, "Orta");
+    //langDegrees.Add(75, "İyi");
+    //langDegrees.Add(100, "Çok İyi");
+
+    //List<SelectListItem> selectList2 = new List<SelectListItem>();
+
+    //foreach (var item in langDegrees)
+    //{
+    //    selectList2.Add(new SelectListItem() { Text = item.Value, Value = item.Key.ToString() });
+    //}
+
+
+    // 3. yöntem
+    //List<SelectListItem> selectList3 =
+    //    langDegrees.Select(
+    //        x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString() }).ToList();
+
+}
+
+@Html.DropDownList("Scale", selectList, "Seviye", new { @class = "form-control" })

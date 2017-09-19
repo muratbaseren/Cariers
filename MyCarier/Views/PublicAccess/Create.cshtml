@@ -1,0 +1,49 @@
+﻿@model MyCarier.ViewModels.PublicAccessViewModel
+
+@{
+    ViewBag.Title = "Create";
+    ViewBag.Header = "Create Shared Url";
+    ViewBag.HeaderIcon = "cog";
+    ViewBag.NavSettings = "w3-blue";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    string nowDateStr = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+<div class="w3-container w3-padding-16">
+    <div class="col-md-6">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Create Public Access Url</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", type = "date", min = nowDateStr } })
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", type = "date", min = nowDateStr } })
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-push-4 col-md-6">
+                        <input type="submit" value="Create" class="btn btn-success" /> @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

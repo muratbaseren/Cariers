@@ -1,0 +1,18 @@
+﻿@using MyCarier.Models
+@{ 
+    DatabaseContext db = new DatabaseContext();
+    MyCarier.Models.PersonInfo pi = ViewBag.Person;
+    List<Ability> langs = db.Abilities.Where(x => x.PersonInfo.Id == pi.Id && x.Category == "lang").ToList();
+}
+
+<p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
+
+@foreach (Ability ab in langs)
+{
+    <p>@ab.Name</p>
+    <div class="w3-light-grey w3-round-xlarge">
+        <div class="w3-round-xlarge w3-teal" style="height:24px;width:@ab.Scale%"></div>
+    </div>
+}
+
+<br>

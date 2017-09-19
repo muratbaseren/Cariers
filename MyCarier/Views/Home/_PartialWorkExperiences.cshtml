@@ -1,0 +1,36 @@
+﻿@using MyCarier.Models
+
+@{
+    DatabaseContext db = new DatabaseContext();
+    MyCarier.Models.PersonInfo pi = ViewBag.Person;
+    List<WorkExprience> works = db.WorkExpriences.Where(x => x.PersonInfo.Id == pi.Id).OrderByDescending(x => x.StartDate).ToList();
+}
+
+<div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
+
+    @foreach (WorkExprience we in works)
+    {
+        string endDateStr = string.Empty;
+        string startDateStr = we.StartDate.ToShortDateString();
+        string classStr = string.Empty;
+
+        if (we.IsCurrent) {
+            endDateStr = "Current";
+            classStr = "w3-tag w3-teal w3-round";
+        } else {
+            endDateStr = we.EndDate.Value.ToShortDateString();
+        }
+
+        <div class="w3-container">
+            <h5 class="w3-opacity"><b>@we.Title / @we.CompanyName</b></h5>
+            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>
+            @startDateStr - <span class="@classStr">@endDateStr</span></h6>
+            <p>@Html.Raw(we.Description)</p>
+            <hr>
+        </div>
+
+    }
+
+
+</div>

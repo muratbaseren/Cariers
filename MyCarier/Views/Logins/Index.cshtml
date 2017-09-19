@@ -1,0 +1,55 @@
+﻿@model IEnumerable<MyCarier.Models.Login>
+
+@{
+    ViewBag.Title = "Index";
+    ViewBag.Header = "Users";
+    ViewBag.HeaderIcon = "users";
+    ViewBag.NavUsers = "w3-blue";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="w3-container w3-padding-16">
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            string email = MyCarier.Classes.SessionHelper.GetCurrentEmail();
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id },
+                        new { @class = "btn btn-warning btn-sm" })
+
+
+                    @Html.ActionLink("Details", "Details", new { id = item.Id },
+                        new { @class = "btn btn-info btn-sm" })
+
+                    @if (item.Email == email)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id },
+                        new { @class = "btn btn-danger btn-sm", disabled = "disabled" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id },
+                        new { @class = "btn btn-danger btn-sm" })
+                    }
+
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,56 @@
+﻿@helper AddProgressBar(int val)
+{
+    <progress min="0" max="100" value="@val"></progress>
+}
+
+@helper AddLanguageString(int val)
+{
+switch (val)
+{
+    case 25:
+            <span>Az</span>
+        break;
+    case 50:
+            <span>Orta</span>
+        break;
+    case 75:
+            <span>İyi</span>
+        break;
+    case 100:
+            <span>Çok İyi</span>
+        break;
+    default:
+        break;
+}
+}
+
+@helper GetSocialIconName(string icon)
+{
+
+    switch (icon)
+    {
+        case "facebook-official":
+            <span>facebook</span>
+            break;
+        case "instagram":
+            <span>instagram</span>
+            break;
+        case "snapchat":
+            <span>snapchat</span>
+            break;
+        case "pinterest-p":
+            <span>pinterest</span>
+            break;
+        case "twitter":
+            <span>twitter</span>
+            break;
+        case "linkedin":
+            <span>linkedin</span>
+            break;
+        default:
+            <span>---</span>
+            break;
+
+    }
+
+}
